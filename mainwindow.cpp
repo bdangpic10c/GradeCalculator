@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_9->setText("Hw 7");
     ui->label_10->setText("Midterm 1");
     ui->label_11->setText("Midterm 2");
-    ui->label_12->setText("Midterm 3");
+    ui->label_12->setText("Final Exam");
     ui->label_13->setText("Schema A");
     ui->label_14->setText("Schema B");
     ui->label_15->setText("Final Score: " );
@@ -42,9 +42,112 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->radioButton->setText(" ");
     ui->radioButton_2->setText(" ");
+
+    connect(ui->comboBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(switchClass()));
+    connect(ui->comboBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(Calculation()));
+
+    connect(ui->spinBox,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_2,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_3,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_4,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_5,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_6,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_7,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_8,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_9,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_10,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->spinBox_11,SIGNAL(valueChanged(int)),this,SLOT(Calculation()));
+    connect(ui->radioButton,SIGNAL(toggled(bool)),this,SLOT(Calculation()));
+    connect(ui->radioButton_2,SIGNAL(toggled(bool)),this,SLOT(Calculation()));
+
+    ui->label_16 ->setVisible(false);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::switchClass(){
+    if(ui->comboBox->currentIndex()){
+        ui->label_11->setText("Midterm 2");
+    }
+     else{
+        ui->label_11->setText("Final Project");
+
+    }
+}
+
+void MainWindow::Calculation(){
+    if(ui->comboBox->currentIndex() == 1){
+        int assignments[8] = {ui->spinBox->value(),ui->spinBox_2->value(), ui->spinBox_3->value(),ui->spinBox_4->value(),
+                             ui->spinBox_5->value(),ui->spinBox_6->value(), ui->spinBox_7->value(),ui->spinBox_8->value()};
+
+        double lowestHomework = assignments[0];
+        double homeworkTotal = 0;
+        for(int i = 0; i < 8; ++i){
+            if(assignments[i] < lowestHomework)
+                lowestHomework = assignments[i];
+        }
+        for(int i = 0; i < 8; ++i){
+            homeworkTotal += assignments[i];
+        }
+        homeworkTotal -= lowestHomework;
+        homeworkTotal /= 7;
+
+        double m1 = ui->spinBox_9->value();
+        double m2 = ui->spinBox_10->value();
+        double final = ui->spinBox_11->value();
+        double overall_A = .25*homeworkTotal + .2*m1 + .2*m2 + .35*final;
+        double overall_B = 0;
+        if(m1 > m2)
+            overall_B = .25*homeworkTotal + .3*m1 + .45*final;
+        else
+            overall_B = .25*homeworkTotal + .3*m2 + .45*final;
+
+        if(ui->radioButton->isChecked()){
+            ui->label_16->setNum(overall_A);
+            ui->label_16->setVisible(true);
+        }
+        else if(ui->radioButton_2->isChecked()){
+            ui->label_16->setNum(overall_B);
+            ui->label_16->setVisible(true);
+        }
+        else
+            ui->label_16->setVisible(false);
+    }
+    else{
+        int assignments[8] = {ui->spinBox->value(),ui->spinBox_2->value(), ui->spinBox_3->value(),ui->spinBox_4->value(),
+                             ui->spinBox_5->value(),ui->spinBox_6->value(), ui->spinBox_7->value(),ui->spinBox_8->value()};
+
+        double lowestHomework = assignments[0];
+        double homeworkTotal = 0;
+        for(int i = 0; i < 8; ++i){
+            if(assignments[i] < lowestHomework)
+                lowestHomework = assignments[i];
+        }
+        for(int i = 0; i < 8; ++i){
+            homeworkTotal += assignments[i];
+        }
+        homeworkTotal -= lowestHomework;
+        homeworkTotal /= 7;
+
+        double m1 = ui->spinBox_9->value();
+        double m2 = ui->spinBox_10->value();
+        double final = ui->spinBox_11->value();
+        double overall_A = .15*homeworkTotal + .25*m1 + .35*m2 + .3*final;
+        double overall_B = .15*homeworkTotal + .5*final + .35*m2;
+
+        if(ui->radioButton->isChecked()){
+            ui->label_16->setNum(overall_A);
+            ui->label_16->setVisible(true);
+        }
+        else if(ui->radioButton_2->isChecked()){
+            ui->label_16->setNum(overall_B);
+            ui->label_16->setVisible(true);
+        }
+        else
+            ui->label_16->setVisible(false);
+    }
+}
+

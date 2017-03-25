@@ -18,6 +18,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+public slots:
+    void switchClass();
+    void Calculation();
 };
 
 #endif // MAINWINDOW_H
