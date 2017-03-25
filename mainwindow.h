@@ -22,6 +22,7 @@ private:
 public slots:
     void switchClass();
     void Calculation();
+    void slider();
 };
 
 #endif // MAINWINDOW_H

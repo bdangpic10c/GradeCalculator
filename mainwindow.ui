@@ -343,7 +343,7 @@
      <rect>
       <x>320</x>
       <y>140</y>
-      <width>70</width>
+      <width>100</width>
       <height>16</height>
      </rect>
     </property>
@@ -511,22 +511,6 @@
      <string>TextLabel</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>570</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuHello">
-    <property name="title">
-     <string>Hello</string>
-    </property>
-   </widget>
-   <addaction name="menuHello"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
